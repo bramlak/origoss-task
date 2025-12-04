@@ -19,5 +19,5 @@ jobs:
         
       - name: push to dockerhub
         run: |
-          docker login -u bramlak -p ${{secret.DOCKER_HUB_TOKEN}}
+          docker login -u bramlak -p ${{secrets.DOCKER_HUB_TOKEN}}
           docker push bramlak/origoss-task-server:latest
