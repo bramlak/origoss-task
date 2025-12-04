@@ -1,0 +1,25 @@
+name: Build and push image to dockerhub
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - feature/docker-ci
+    paths:
+      - 'server/**'
+
+jobs:
+  publish_image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      
+      - name: build image
+        run: docker build ./server -t bramlak/origoss-task-server:latest
+        
+      - name: push to dockerhub
+        run: |
+          docker login -u bramlak -p ${{secrets.DOCKER_HUB_TOKEN}}
+          docker push bramlak/origoss-task-server:latest
