@@ -9,3 +9,10 @@ variable "image" {
   type = string
   default = "bramlak/origoss-task-server:latest"
 }
+
+variable "kubernetes_config_path" {
+  description = "Path to the kubeconfig file used by the Kubernetes provider"
+  type = string
+  default = "~/.kube/config"
+}
+
