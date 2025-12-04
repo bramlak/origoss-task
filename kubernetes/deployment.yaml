@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: origoss-task-server
+  labels:
+    app: origoss-task
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: origoss-task
+  template:
+    metadata:
+      labels:
+        app: origoss-task
+    spec:
+      containers:
+      - name: server
+        image: bramlak/origoss-task-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "300m"
+            memory: "256Mi"
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
