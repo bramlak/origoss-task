@@ -17,10 +17,17 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 
 func loadPortFromEnvFile() string {
 		err := godotenv.Load()
+		port := ""
     if err != nil {
-    	log.Fatal("Error loading .env file: ", err)
-	  }
-	port := os.Getenv("PORT")
+    	log.Println("Error loading .env file: ", err)
+		} else {
+			port = os.Getenv("PORT")
+		}
+		if port == ""{
+			port = "8080"
+			log.Println("Using default port 8080")
+		}
+
 	return port
 }
 
