@@ -16,3 +16,9 @@ variable "kubernetes_config_path" {
   default = "~/.kube/config"
 }
 
+variable "host_domain" {
+  description = "The host domain used to access the server"
+  type = string
+  default = "origoss-task.local"
+}
+
