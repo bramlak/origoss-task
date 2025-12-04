@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: origoss-task-ingress
+spec:
+  rules:
+  - host: origoss-task.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: origoss-task-service
+            port:
+              number: 80
