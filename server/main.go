@@ -20,11 +20,14 @@ func loadPortFromEnvFile() string {
 		port := ""
     if err != nil {
     	log.Println("Error loading .env file: ", err)
-			port = "8080"
-			log.Println("Using default port 8080")
-	  } else {
+		} else {
 			port = os.Getenv("PORT")
 		}
+		if port == ""{
+			port = "8080"
+			log.Println("Using default port 8080")
+		}
+
 	return port
 }
 
