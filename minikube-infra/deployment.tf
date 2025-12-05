@@ -28,6 +28,10 @@ resource "kubernetes_deployment" "origoss_task_server" {
           image = var.image
           name  = "server"
           image_pull_policy = "Always"
+          env {
+            name  = "PORT"
+            value = "8080"
+          }
 
           port {
             container_port = 8080
