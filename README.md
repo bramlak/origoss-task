@@ -31,10 +31,11 @@ This project demonstrates a complete end-to-end workflow for deploying a simple 
 ## Set Up
 ### Prerequisites
 
+A few things need to be installed first. Feel free to follow the official websites.
 - [Go](https://go.dev/)
 - [Docker](https://www.docker.com/)
 - [Minikube](https://minikube.sigs.k8s.io/)
-- [kubectl](https://kubernetes.io/)
+- [Kubectl](https://kubernetes.io/docs/reference/kubectl/)
 - [Terraform](https://developer.hashicorp.com/terraform/)
 
 
@@ -53,7 +54,14 @@ cd origoss-task
 minikube start
 ```
 
-3. **Add local domain to host list**
+3. **Enable Ingress Addon**
+
+This setup uses Ingress. Enable Minikbe's ingress addon:
+```bash
+minikube addons enable ingress
+```
+
+4. **Add local domain to host list**
 
 Aquire Minikube IP and add to `/etc/hosts`
 ```bash
@@ -128,8 +136,9 @@ Follow the official [Forking - GitHub documentation](https://docs.github.com/en/
 ## Notes
 * Feel free to change local domain from `origoss-task.local` to any custom one
 * Feel free to change replica count according to custom needs
-* This approach aims to satisfy the main requirements: simplicity and efficiency. If more complexity is acceptable, a few improvements could be added:
- - AWS EKS cluster usage (possibly with additional features)
- - additional Go endpoints for Kubernetes probes
- - etc.
+* This approach aims to satisfy the main requirements: **simplicity** and **efficiency**. If more complexity is acceptable, a few improvements could be added:
+  - AWS EKS cluster usage (possibly with additional features)
+  - additional Go endpoints for Kubernetes probes if needed
+  - Terraform state management backend
+  - etc.
 
