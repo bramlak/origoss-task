@@ -14,6 +14,12 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, message)
 }
 
+func getHealth(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	log.Println("Health check requested")
+}
+
+
 func loadPort() string {
     port := os.Getenv("PORT")
     if port == "" {
@@ -26,6 +32,7 @@ func loadPort() string {
 func main() {
 	var port string = loadPort();
 	http.HandleFunc("/", getRoot)
+	http.HandleFunc("/healthz", getHealth)
 	address := net.JoinHostPort("", port)
 	log.Println("Server is running on port", port)
 	http.ListenAndServe(address, nil)
