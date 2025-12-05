@@ -28,6 +28,10 @@ resource "kubernetes_deployment" "origoss_task_server" {
           image = var.image
           name  = "server"
           image_pull_policy = "Always"
+          env {
+            name  = "PORT"
+            value = "8080"
+          }
 
           port {
             container_port = 8080
@@ -46,20 +50,11 @@ resource "kubernetes_deployment" "origoss_task_server" {
 
           liveness_probe {
             http_get {
-              path = "/"
+              path = "/healthz"
               port = 8080
             }
             initial_delay_seconds = 10
             period_seconds        = 10
-          }
-
-          readiness_probe {
-            http_get {
-              path = "/"
-              port = 8080
-            }
-            initial_delay_seconds = 5
-            period_seconds        = 5
           }
         }
       }
