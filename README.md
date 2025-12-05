@@ -140,5 +140,6 @@ Follow the official [Forking - GitHub documentation](https://docs.github.com/en/
   - AWS EKS cluster usage (possibly with additional features)
   - additional Go endpoints for Kubernetes probes if needed
   - Terraform state management backend
+  - server and server image versioning
   - etc.
 
