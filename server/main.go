@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"log"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
@@ -29,10 +30,13 @@ func loadPort() string {
     return port
 }
 
+
+
 func main() {
 	var port string = loadPort();
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/healthz", getHealth)
+	http.Handle("/metrics", promhttp.Handler())
 	address := net.JoinHostPort("", port)
 	log.Println("Server is running on port", port)
 	http.ListenAndServe(address, nil)
