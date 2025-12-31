@@ -56,6 +56,15 @@ resource "kubernetes_deployment" "origoss_task_server" {
             initial_delay_seconds = 10
             period_seconds        = 10
           }
+
+          readiness_probe {
+            http_get {
+              path = "/readyz"
+              port = 8080
+            }
+            initial_delay_seconds = 20
+            period_seconds= 10
+          }
         }
       }
     }

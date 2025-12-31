@@ -20,6 +20,11 @@ func getHealth(w http.ResponseWriter, r *http.Request) {
 	log.Println("Health check requested")
 }
 
+func getReadiness(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	log.Println("Readiness check requested")
+}
+
 
 func loadPort() string {
     port := os.Getenv("PORT")
@@ -36,6 +41,7 @@ func main() {
 	var port string = loadPort();
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/healthz", getHealth)
+	http.HandleFunc("/readyz", getReadiness)
 	http.Handle("/metrics", promhttp.Handler())
 	address := net.JoinHostPort("", port)
 	log.Println("Server is running on port", port)
