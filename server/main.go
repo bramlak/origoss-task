@@ -1,13 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"math/rand/v2"
 	"net"
 	"net/http"
 	"os"
-	"strconv"
 	// "github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -27,10 +27,14 @@ func getReadiness(w http.ResponseWriter, r *http.Request) {
 	log.Println("Readiness check requested")
 }
 
-func getRandomNumber(w http.ResponseWriter, r *http.Request) {
+func getMetrics(w http.ResponseWriter, r *http.Request) {
 	var number int = rand.IntN(100) + 500
+	var metricsText string = fmt.Sprintf(`# HELP my_number A simple number exposed as a metric.
+# TYPE my_number gauge
+my_number %d
+`, number)
 	log.Println("Random number requested")
-	io.WriteString(w, strconv.Itoa(number))
+	io.WriteString(w, metricsText)
 
 }
 
@@ -49,7 +53,7 @@ func main() {
 	http.HandleFunc("/healthz", getHealth)
 	http.HandleFunc("/readyz", getReadiness)
 	// http.Handle("/metrics", promhttp.Handler())
-	http.HandleFunc("/metrics", getRandomNumber)
+	http.HandleFunc("/metrics", getMetrics)
 	address := net.JoinHostPort("", port)
 	log.Println("Server is running on port", port)
 	http.ListenAndServe(address, nil)
