@@ -5,7 +5,7 @@ resource "kubernetes_service" "origoss_task_service" {
 
     annotations = {
       "prometheus.io/scrape" = "true"
-      "prometheus.io/port"   = "8080"
+      "prometheus.io/port"   = "80"
       "prometheus.io/path"   = "/metrics"
     }
   }
