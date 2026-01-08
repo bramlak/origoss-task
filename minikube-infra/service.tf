@@ -3,10 +3,8 @@ resource "kubernetes_service" "origoss_task_service" {
     name      = "origoss-task-service"
     namespace = kubernetes_namespace.origoss_task.metadata[0].name
 
-    annotations = {
-      "prometheus.io/scrape" = "true"
-      "prometheus.io/port"   = "80"
-      "prometheus.io/path"   = "/metrics"
+    labels = {
+      "prometheus": "main"
     }
   }
 
