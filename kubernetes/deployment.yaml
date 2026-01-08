@@ -42,6 +42,6 @@ spec:
           httpGet:
             path: /readyz
             port: 8080
-          initialDelay: 20
+          initialDelaySeconds: 20
           periodSeconds: 10
           
